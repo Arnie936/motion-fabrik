@@ -11,6 +11,8 @@ alles ein und hilft dir danach, einen guten Video-Prompt zu schreiben.
 https://github.com/Arnie936/motion-fabrik
 ```
 
+Landingpage: [motion-fabrik.vercel.app](https://motion-fabrik.vercel.app)
+
 ---
 
 > ### Für KI-Agenten
