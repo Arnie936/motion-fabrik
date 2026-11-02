@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Motion Fabrik · AI mit Arnie</title>
+  <meta name="description" content="Gib den Link deinem Agent und sag ihm: Ich will das installieren. Videos per Code mit Claude Code einrichten." />
+  <meta property="og:title" content="Motion Fabrik" />
+  <meta property="og:description" content="Gib den Link deinem Agent und sag ihm: Ich will das installieren." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B0E11'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='18' text-anchor='middle' fill='%23F3F4EF'%3EA%3C/text%3E%3Crect x='9' y='25' width='14' height='2.5' fill='%23B7FF3C'/%3E%3C/svg%3E" />
+  <style>
+    @font-face { font-family: "Space Grotesk"; font-weight: 700; font-display: swap; src: url(fonts/space-grotesk-latin-700-normal.woff2) format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 400; font-display: swap; src: url(fonts/inter-latin-400-normal.woff2) format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 600; font-display: swap; src: url(fonts/inter-latin-600-normal.woff2) format("woff2"); }
+    @font-face { font-family: "JetBrains Mono"; font-weight: 500; font-display: swap; src: url(fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2"); }
+
+    :root {
+      --bg: #0B0E11; --surf: #171B20; --fg: #F3F4EF; --mut: #9CA6AE;
+      --line: #2A3037; --line-2: #323840; --acc: #B7FF3C; --acc-ink: #0B0E11;
+      --display: "Space Grotesk", system-ui, sans-serif;
+      --body: "Inter", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg); color: var(--fg); font-family: var(--body);
+      display: flex; flex-direction: column; min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    main {
+      flex: 1; width: 100%; max-width: 880px; margin: 0 auto;
+      padding: 96px 24px 64px; display: flex; flex-direction: column; justify-content: center;
+    }
+    .lbl {
+      font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--mut);
+    }
+    .lbl b { color: var(--acc); font-weight: 500; }
+    h1 {
+      font-family: var(--display); font-weight: 700; font-size: clamp(36px, 6vw, 64px);
+      line-height: 1.04; letter-spacing: -0.02em; margin-top: 24px; text-wrap: balance;
+    }
+    h1 em { font-style: normal; color: var(--acc); }
+    .sig { display: block; width: 72px; height: 3px; background: var(--acc); margin-top: 32px; }
+
+    .copy {
+      margin-top: 48px; display: flex; align-items: stretch; gap: 0;
+      background: var(--surf); border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+    }
+    .copy code {
+      flex: 1; min-width: 0; padding: 20px 22px; font-family: var(--mono); font-size: clamp(14px, 2.2vw, 19px);
+      color: var(--fg); white-space: nowrap; overflow-x: auto; user-select: all;
+    }
+    .copy button {
+      flex: none; border: none; border-left: 1px solid var(--line); background: var(--acc); color: var(--acc-ink);
+      font-family: var(--body); font-weight: 600; font-size: 15px; padding: 0 26px; cursor: pointer;
+    }
+    .copy button:focus-visible { outline: 2px solid var(--fg); outline-offset: -4px; }
+    @media (max-width: 560px) {
+      .copy { flex-direction: column; }
+      .copy code { white-space: normal; word-break: break-all; }
+      .copy button { border-left: none; border-top: 1px solid var(--line); padding: 16px; }
+    }
+    .hint { margin-top: 14px; font-size: 15px; color: var(--mut); }
+    .hint b { color: var(--fg); font-weight: 600; }
+
+    .community {
+      margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 16px;
+    }
+    .community a { font-family: var(--mono); font-size: 16px; color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--line-2); }
+    .community a:hover { color: var(--acc); border-color: var(--acc); }
+
+    footer {
+      border-top: 1px solid var(--line); padding: 24px; display: flex; justify-content: center;
+      font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--mut);
+    }
+    footer .w { font-family: var(--display); font-weight: 700; letter-spacing: 0.08em; color: var(--fg); }
+    footer .w span { color: var(--acc); }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="lbl">AI mit Arnie · <b>Motion Fabrik</b></div>
+    <h1>Gib den Link deinem Agent und sag ihm: <em>„Ich will das installieren.“</em></h1>
+    <span class="sig"></span>
+
+    <div class="copy">
+      <code id="repo">https://github.com/Arnie936/motion-fabrik</code>
+      <button type="button" id="btn" aria-label="Link kopieren">Kopieren</button>
+    </div>
+    <p class="hint">Funktioniert mit <b>Claude Code</b> und zur Not mit <b>Codex</b>.</p>
+
+    <div class="community">
+      <span class="lbl">Community</span>
+      <a href="https://www.skool.com/ai-mit-arnie-ki-revolution" rel="noopener">skool.com/ai-mit-arnie-ki-revolution</a>
+    </div>
+  </main>
+  <footer><span class="w"><span>AI</span> MIT ARNIE</span></footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById("btn"), url = document.getElementById("repo").textContent;
+      btn.addEventListener("click", function () {
+        function done() { btn.textContent = "Kopiert ✓"; setTimeout(function () { btn.textContent = "Kopieren"; }, 1800); }
+        if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(url).then(done, fallback);
+        else fallback();
+        function fallback() {
+          var r = document.createRange(); r.selectNodeContents(document.getElementById("repo"));
+          var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+          try { document.execCommand("copy"); done(); } catch (e) {}
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
