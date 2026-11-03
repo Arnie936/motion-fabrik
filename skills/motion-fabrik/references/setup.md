@@ -93,7 +93,7 @@ Soundeffekte zu generieren?“ Ja (Empfohlen) / Nein.
 **Bei Ja** zuerst fragen: „Hast du schon ein Higgsfield-Konto?“ Nur wenn nicht,
 diesen Text zeigen, inklusive Kennzeichnung:
 
-> Hier kannst du dich anmelden: https://higgsfield.ai/s/mcp-arnold-oberleiter-jBCHJp
+> Hier kannst du dich anmelden: https://higgsfield.ai/s/mcp-arnold-oberleiter-Lrbecz
 > (Affiliate-Link: Wenn du darüber ein Abo abschließt, bekommt der Autor dieses
 > Skills eine Provision. Für dich ändert sich am Preis nichts.)
 
